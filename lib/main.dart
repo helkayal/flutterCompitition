@@ -1,4 +1,4 @@
-import 'package:compitition_team_2/navbar.dart';
+import 'package:compitition_team_2/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 
@@ -41,7 +41,7 @@ class _MainAppState extends State<MainApp> {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: NavbarScreen(),
+      home: Splashscreen(),
     );
   }
 }

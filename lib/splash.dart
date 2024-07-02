@@ -1,3 +1,4 @@
+import 'package:compitition_team_2/constants/app_colors.dart';
 import 'package:compitition_team_2/navbar.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,7 @@ class Splashscreen extends StatefulWidget {
 class _SplashscreenState extends State<Splashscreen> {
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacement(context,
           MaterialPageRoute(builder: (context) => const NavbarScreen()));
     });
@@ -21,7 +22,7 @@ class _SplashscreenState extends State<Splashscreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: AppColors.blackColor,
       body: Center(child: Image.asset('assets/splash.png')),
     );
   }

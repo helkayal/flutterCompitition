@@ -1,67 +1,21 @@
+import 'package:compitition_team_2/constants/app_text_styles.dart';
 import 'package:compitition_team_2/model/exercise.dart';
 import 'package:compitition_team_2/training.dart';
 import 'package:flutter/material.dart';
 
 class ExerciseScreen extends StatefulWidget {
-  const ExerciseScreen({super.key});
+  final Function(TodayExercises) onItemAdded;
+  const ExerciseScreen({super.key, required this.onItemAdded});
 
   @override
   State<ExerciseScreen> createState() => _ExerciseScreenState();
 }
 
 class _ExerciseScreenState extends State<ExerciseScreen> {
-  final List<Exercise> exercises = [
-    Exercise(name: 'Back', imagePath: 'assets/Back/main.png', trainings: [
-      "assets/Back/1.gif",
-      "assets/Back/2.gif",
-      "assets/Back/3.gif",
-      "assets/Back/4.gif",
-      "assets/Back/5.gif",
-      "assets/Back/6.gif",
-    ]),
-    Exercise(name: 'Biceps', imagePath: 'assets/Biceps/main.jpg', trainings: [
-      "assets/Biceps/1.gif",
-      "assets/Biceps/2.gif",
-      "assets/Biceps/3.gif",
-      "assets/Biceps/4.gif",
-      "assets/Biceps/5.gif",
-      "assets/Biceps/6.gif",
-      "assets/Biceps/7.gif",
-      "assets/Biceps/8.gif"
-    ]),
-    Exercise(name: 'Chest', imagePath: 'assets/chest/main1.jpg', trainings: [
-      "assets/chest/1.gif",
-      "assets/chest/2.gif",
-      "assets/chest/3.gif",
-      "assets/chest/4.gif",
-      "assets/chest/5.gif",
-      "assets/chest/6.gif",
-      "assets/chest/7.gif",
-      "assets/chest/8.gif",
-    ]),
-    Exercise(name: 'Legs', imagePath: 'assets/legs/main.jpeg', trainings: [
-      "assets/legs/1.gif",
-      "assets/legs/2.gif",
-      "assets/legs/3.gif",
-      "assets/legs/4.gif",
-      "assets/legs/5.gif",
-      "assets/legs/6.gif",
-      "assets/legs/7.gif",
-      "assets/legs/8.gif",
-    ]),
-    Exercise(
-        name: 'Shoulder',
-        imagePath: 'assets/shoulder/main.jpg',
-        trainings: [
-          "assets/shoulder/1.gif",
-          "assets/shoulder/2.gif",
-          "assets/shoulder/3.gif",
-          "assets/shoulder/4.gif",
-          "assets/shoulder/5.gif",
-          "assets/shoulder/6.gif",
-          "assets/shoulder/7.gif",
-        ]),
-  ];
+  final List<Exercise> exercises = Exercise.getExercises();
+  final exerciseController = TextEditingController();
+  final dateController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -77,17 +31,84 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
             decoration: const BoxDecoration(
                 color: Colors.green,
                 borderRadius: BorderRadius.all(Radius.circular(20))),
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text(
+                const Text(
                   "Add New Exercise Today ",
-                  style: TextStyle(fontSize: 24),
+                  style: TextStyle(
+                      fontSize: 28,
+                      color: Colors.black,
+                      fontFamily: "assets/fonts/Space_Mono/OFL.txt"),
                 ),
-                CircleAvatar(
-                  radius: 40,
-                  backgroundImage: AssetImage(
-                    "assets/add.gif",
+                InkWell(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          backgroundColor: const Color(0xff0b0812),
+                          title: const Text(
+                            "Add new exercise today",
+                            style: AppTextStyles.txtGreen,
+                          ),
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              TextField(
+                                style: const TextStyle(color: Colors.grey),
+                                controller: exerciseController,
+                                decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
+                                    labelText: "Exercise",
+                                    labelStyle:
+                                        const TextStyle(color: Colors.grey)),
+                              ),
+                              const SizedBox(height: 16.0),
+                              TextField(
+                                style: const TextStyle(color: Colors.grey),
+                                controller: dateController,
+                                decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
+                                    labelText: "Date",
+                                    labelStyle:
+                                        const TextStyle(color: Colors.grey)),
+                              ),
+                            ],
+                          ),
+                          actions: [
+                            Center(
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.green),
+                                onPressed: () {
+                                  final ex = exerciseController.text;
+                                  final dt = dateController.text;
+                                  final newItem = TodayExercises(
+                                      name: ex, date: dt, status: "Pending");
+                                  widget.onItemAdded(newItem);
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text(
+                                  "Add",
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  child: const CircleAvatar(
+                    radius: 40,
+                    backgroundImage: AssetImage(
+                      "assets/add.gif",
+                    ),
                   ),
                 ),
               ],
@@ -130,19 +151,11 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                         children: [
                           Text(
                             '${exercise.name} Exercise',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: AppTextStyles.txtWhiteBold,
                           ),
                           Text(
                             exercise.trainings.length.toString(),
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: AppTextStyles.txtWhiteBold,
                           ),
                         ],
                       ),

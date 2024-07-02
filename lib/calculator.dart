@@ -1,3 +1,5 @@
+import 'package:compitition_team_2/constants/app_colors.dart';
+import 'package:compitition_team_2/constants/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 class CalculatorScreen extends StatefulWidget {
@@ -10,17 +12,17 @@ class CalculatorScreen extends StatefulWidget {
 class _CalculatorScreenState extends State<CalculatorScreen> {
   List<String> gender = ["Male", "Female"];
   GlobalKey<FormState> field = GlobalKey();
-  int? age;
-  double? weight;
-  double? height;
-  int calories = 0;
-  String? selectedanswer;
+  late int age;
+  late double weight;
+  late double height;
+  double calories = 0;
+  String selectedanswer = "";
   bool isselected = false;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: AppColors.blackColor,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -30,31 +32,28 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     TextFormField(
-                        style: const TextStyle(color: Colors.white),
+                        style: AppTextStyles.txtWhite,
                         decoration: InputDecoration(
                           label: const Text(
                             "Age",
-                            style: TextStyle(fontSize: 25, color: Colors.white),
+                            style: AppTextStyles.txtWhite,
                           ),
-                          fillColor: Colors.black,
+                          fillColor: AppColors.blackColor,
                           filled: true,
                           enabledBorder: OutlineInputBorder(
-                              borderSide:
-                                  const BorderSide(color: Colors.purple),
+                              borderSide: const BorderSide(
+                                  color: AppColors.purpleColor),
                               borderRadius: BorderRadius.circular(20)),
                           focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  const BorderSide(color: Colors.purple),
+                              borderSide: const BorderSide(
+                                  color: AppColors.purpleColor),
                               borderRadius: BorderRadius.circular(20)),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20),
-                              borderSide:
-                                  const BorderSide(color: Colors.purple)),
+                              borderSide: const BorderSide(
+                                  color: AppColors.purpleColor)),
                           hintText: "Age",
-                          hintStyle: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w700),
+                          hintStyle: AppTextStyles.txtWhiteBold,
                         ),
                         validator: (value) {
                           if (value!.isEmpty) {
@@ -63,37 +62,34 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                           return null;
                         },
                         onSaved: (value) {
-                          age = value! as int?;
+                          age = int.parse(value!);
                         }),
                     const SizedBox(
                       height: 20,
                     ),
                     TextFormField(
-                        style: const TextStyle(color: Colors.white),
+                        style: AppTextStyles.txtWhite,
                         decoration: InputDecoration(
                           label: const Text(
                             "Weight in kilo grams",
-                            style: TextStyle(fontSize: 15, color: Colors.white),
+                            style: AppTextStyles.txtWhite,
                           ),
                           fillColor: Colors.black,
                           filled: true,
                           enabledBorder: OutlineInputBorder(
-                              borderSide:
-                                  const BorderSide(color: Colors.purple),
+                              borderSide: const BorderSide(
+                                  color: AppColors.purpleColor),
                               borderRadius: BorderRadius.circular(20)),
                           focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  const BorderSide(color: Colors.purple),
+                              borderSide: const BorderSide(
+                                  color: AppColors.purpleColor),
                               borderRadius: BorderRadius.circular(20)),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20),
-                              borderSide:
-                                  const BorderSide(color: Colors.purple)),
+                              borderSide: const BorderSide(
+                                  color: AppColors.purpleColor)),
                           hintText: "Weight in kilo grams",
-                          hintStyle: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w700),
+                          hintStyle: AppTextStyles.txtWhiteBold,
                         ),
                         validator: (value) {
                           if (value!.isEmpty) {
@@ -102,37 +98,34 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                           return null;
                         },
                         onSaved: (value) {
-                          weight = value as double?;
+                          weight = double.parse(value!);
                         }),
                     const SizedBox(
                       height: 20,
                     ),
                     TextFormField(
-                        style: const TextStyle(color: Colors.white),
+                        style: AppTextStyles.txtWhite,
                         decoration: InputDecoration(
                           label: const Text(
                             "Height in Cm",
-                            style: TextStyle(fontSize: 15, color: Colors.white),
+                            style: AppTextStyles.txtWhite,
                           ),
-                          fillColor: Colors.black,
+                          fillColor: AppColors.blackColor,
                           filled: true,
                           enabledBorder: OutlineInputBorder(
-                              borderSide:
-                                  const BorderSide(color: Colors.purple),
+                              borderSide: const BorderSide(
+                                  color: AppColors.purpleColor),
                               borderRadius: BorderRadius.circular(20)),
                           focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  const BorderSide(color: Colors.purple),
+                              borderSide: const BorderSide(
+                                  color: AppColors.purpleColor),
                               borderRadius: BorderRadius.circular(20)),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20),
-                              borderSide:
-                                  const BorderSide(color: Colors.purple)),
+                              borderSide: const BorderSide(
+                                  color: AppColors.purpleColor)),
                           hintText: "height in Cm",
-                          hintStyle: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w700),
+                          hintStyle: AppTextStyles.txtWhiteBold,
                         ),
                         validator: (value) {
                           if (value!.isEmpty) {
@@ -141,7 +134,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                           return null;
                         },
                         onSaved: (value) {
-                          height = value as double?;
+                          height = double.parse(value!);
                         }),
                     const SizedBox(
                       height: 20,
@@ -161,15 +154,11 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                           field.currentState!.save();
                           setState(() {
                             if (selectedanswer == "Male") {
-                              calories = (10 * weight! +
-                                  6.25 * height! -
-                                  5 * age! +
-                                  5) as int;
+                              calories =
+                                  10 * weight + 6.25 * height - 5 * age + 5;
                             } else {
-                              calories = (10 * weight! +
-                                  6.25 * height! -
-                                  5 * age! -
-                                  161) as int;
+                              calories =
+                                  10 * weight + 6.25 * height - 5 * age - 161;
                             }
                           });
                         }
@@ -178,21 +167,19 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height / 16,
                         decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: AppColors.whiteColor,
                             borderRadius: BorderRadius.circular(20)),
-                        child: const Center(
+                        child: Center(
                             child: Text(
                           "Calculate the calories you nedded in day ",
-                          style: TextStyle(fontSize: 20),
+                          style: AppTextStyles.txtBlackBold
+                              .copyWith(fontSize: 15.0),
                         )),
                       ),
                     ),
                     Text(
-                      "The Calories you need is $calories",
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700),
+                      "The Calories you need is ${calories.toStringAsFixed(0)}",
+                      style: AppTextStyles.txtWhiteBold,
                     ),
                   ]))
         ],
@@ -212,12 +199,12 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         width: 100,
         height: 50,
         decoration: BoxDecoration(
-            color: isselected ? Colors.green : Colors.white,
+            color: isselected ? AppColors.greenColor : AppColors.whiteColor,
             borderRadius: BorderRadius.circular(20)),
         child: Center(
             child: Text(
           type,
-          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+          style: AppTextStyles.txtBlackBold,
         )),
       ),
     );

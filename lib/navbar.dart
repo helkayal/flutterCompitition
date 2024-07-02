@@ -1,6 +1,9 @@
 import 'package:compitition_team_2/calculator.dart';
+import 'package:compitition_team_2/constants/app_colors.dart';
+import 'package:compitition_team_2/constants/app_text_styles.dart';
 import 'package:compitition_team_2/exercise.dart';
 import 'package:compitition_team_2/home.dart';
+import 'package:compitition_team_2/model/exercise.dart';
 import 'package:flutter/material.dart';
 
 class NavbarScreen extends StatefulWidget {
@@ -12,22 +15,30 @@ class NavbarScreen extends StatefulWidget {
 
 class _NavbarScreenState extends State<NavbarScreen> {
   int indx = 0;
-  final List<Widget> screens = [
-    const HomeScreen(),
-    const ExerciseScreen(),
-    const CalculatorScreen(),
-  ];
+
+  List<TodayExercises> items = [];
+
+  void addItem(TodayExercises item) {
+    setState(() {
+      items.add(item);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    final List<Widget> screens = [
+      HomeScreen(todEx: items),
+      ExerciseScreen(onItemAdded: addItem),
+      const CalculatorScreen(),
+    ];
+
     return Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
           backgroundColor: Colors.black,
-          title: const Text(
+          title: Text(
             "SLOGAN",
-            style: TextStyle(
-                color: Colors.green, fontSize: 30, fontWeight: FontWeight.bold),
+            style: AppTextStyles.txtGreenBold.copyWith(fontSize: 30.0),
           ),
           centerTitle: true,
         ),
@@ -39,19 +50,18 @@ class _NavbarScreenState extends State<NavbarScreen> {
           },
           type: BottomNavigationBarType.fixed,
           currentIndex: indx,
-          // showSelectedLabels: false,
           showUnselectedLabels: false,
-          backgroundColor: Colors.black,
+          backgroundColor: AppColors.blackColor,
           iconSize: 36,
-          selectedItemColor: Colors.green,
-          unselectedItemColor: Colors.white,
+          selectedItemColor: AppColors.greenColor,
+          unselectedItemColor: AppColors.whiteColor,
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
               label: "Home",
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
+              icon: Icon(Icons.sports),
               label: "Daily Exercises",
             ),
             BottomNavigationBarItem(
@@ -60,12 +70,27 @@ class _NavbarScreenState extends State<NavbarScreen> {
             ),
           ],
         ),
-        drawer: const Drawer(
-            backgroundColor: Colors.black,
-            child: Center(
-              child: Image(
-                image: AssetImage("assets/logo.png"),
-              ),
+        drawer: Drawer(
+            backgroundColor: AppColors.blackColor,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const CircleAvatar(
+                  backgroundColor: AppColors.greenColor,
+                  radius: 126,
+                  child: CircleAvatar(
+                    radius: 120,
+                    backgroundImage: AssetImage("assets/easyLearn.jpg"),
+                  ),
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                Text(
+                  "This app developed by EasyLearn Academy",
+                  style: AppTextStyles.txtWhiteBold.copyWith(fontSize: 22.0),
+                ),
+              ],
             )),
         body: screens[indx]);
   }
